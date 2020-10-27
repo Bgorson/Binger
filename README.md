@@ -1,29 +1,29 @@
 # Binger
 React Native Application to narrow down choices when deciding what to watch on a streaming platform.
 
-Initial Goal:
+# Initial Goal:
 
-Picker:
+### Picker:
 
 Users will be presented with a collection of currently available shows and swipe to make a decision on if they like it or not
 
-Picked:
+### Picked:
 
 A gallery of chosen shows
 
-Home:
+### Home:
 
 Relevant information about the platform
 
-About:
+### About:
 
 Basic creator information
 
-General:
+### General:
 
 Establish default styles and look of application
 
-Secondary Goals:
+# Secondary Goals:
 
 
 Connecting to a nearby device to find matches
