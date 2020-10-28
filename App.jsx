@@ -1,15 +1,16 @@
 import React from 'react';
 import { AppLoading } from 'expo';
-import { Container, Text } from 'native-base';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import Footer from './components/Footer';
 import Home from './screens/Home';
-import Picker from './screens/Picker';
+import About from './screens/About';
+import PickerStackScreen from './routes/PickStack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { navigationRef } from './routes/rootNavigate';
 
+const Tab = createBottomTabNavigator();
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +35,11 @@ export default class App extends React.Component {
 
     return (
       <NavigationContainer ref={navigationRef}>
-        <Footer />
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Picker" component={PickerStackScreen} />
+          <Tab.Screen name="About" component={About} />
+        </Tab.Navigator>
       </NavigationContainer>
     );
   }
