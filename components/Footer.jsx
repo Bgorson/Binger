@@ -10,29 +10,22 @@ import {
   Text,
 } from 'native-base';
 import Stack from '../routes/homeStack';
+import Picker from '../screens';
+import Home from '../Home';
 import * as RootNavigation from '../routes/rootNavigate';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
 
 const FooterComponent = () => (
   <Container>
     <Stack />
     <Footer>
       <FooterTab>
-        <Button vertical onPress={() => RootNavigation.navigate('Picker')}>
-          <Icon name="apps" />
-          <Text>Picker</Text>
-        </Button>
-        <Button vertical onPress={() => RootNavigation.navigate('Picked')}>
-          <Icon name="camera" />
-          <Text>Picked</Text>
-        </Button>
-        <Button vertical active onPress={() => RootNavigation.navigate('Home')}>
-          <Icon active name="navigate" />
-          <Text>Home</Text>
-        </Button>
-        <Button vertical onPress={() => RootNavigation.navigate('About')}>
-          <Icon name="person" />
-          <Text>About</Text>
-        </Button>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Picker" component={Picker} />
+        </Tab.Navigator>
       </FooterTab>
     </Footer>
   </Container>

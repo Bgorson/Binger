@@ -7,17 +7,15 @@ import About from '../screens/About';
 
 const Stack = createStackNavigator();
 
-function HomeStack() {
+function AboutStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{
-          title: 'Home',
-        }}
-        name="Home"
-        component={Home}
-      />
-    </Stack.Navigator>
+    <Stack.Screen
+      options={{
+        title: 'About',
+      }}
+      name="About"
+      component={About}
+    />
   );
 }
-export default HomeStack;
+export default AboutStack;
