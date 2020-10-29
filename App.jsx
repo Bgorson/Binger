@@ -9,6 +9,9 @@ import PickerStackScreen from './routes/PickStack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { navigationRef } from './routes/rootNavigate';
+// RN Version > 0.63
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
 const Tab = createBottomTabNavigator();
 export default class App extends React.Component {
