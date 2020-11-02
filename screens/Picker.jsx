@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
   },
   bottom: {
     flex: 1,
@@ -28,16 +28,15 @@ const styles = StyleSheet.create({
 
 export default function Picker({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Header>
-        <Text style={styles.text}>Welcome to the Picker</Text>
-      </Header>
+    <>
+      <Text style={styles.text}>Welcome to the Picker</Text>
       <Swiper />
       {/* <View style={styles.bottom}>
-        <Button onPress={() => navigation.navigate('Picked')} block>
-          <Text>See what you've Picked</Text>
-        </Button>
+
       </View> */}
-    </View>
+      <Button onPress={() => navigation.navigate('Picked')} block>
+        <Text>See what you've Picked</Text>
+      </Button>
+    </>
   );
 }

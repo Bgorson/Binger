@@ -4,6 +4,7 @@ import {
   Container,
   Header,
   View,
+  Button,
   DeckSwiper,
   Card,
   CardItem,
@@ -28,7 +29,6 @@ const cards = [
 export default function DeckSwiperPicker() {
   return (
     <Container>
-      <Header />
       <View>
         <DeckSwiper
           onSwipeLeft={() => console.log('Swipped Left')}
