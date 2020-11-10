@@ -11,6 +11,7 @@ import Header from './components/Header';
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import WelcomeSplash from './screens/WelcomeSplash';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { navigationRef } from './routes/rootNavigate';
@@ -25,6 +26,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isReady: false,
+      isLoggedIn: false,
     };
   }
 
@@ -42,7 +44,11 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
 
-    return (
+    return !this.state.isLoggedIn ? (
+      <WelcomeSplash
+        loggedIn={() => this.setState({ isLoggedIn: true })}
+      ></WelcomeSplash>
+    ) : (
       <>
         <Header />
         <NavigationContainer ref={navigationRef}>
