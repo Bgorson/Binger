@@ -8,7 +8,10 @@ import {
   Button,
   Icon,
   Text,
+  StyleProvider,
 } from 'native-base';
+import getTheme from '../native-base-theme/components';
+import material from '../native-base-theme/variables/material';
 import { globalStyles } from '../styles/globalStyle';
 
 const data = [
@@ -30,8 +33,10 @@ const data = [
 
 export default function Picked(props) {
   return (
-    <Content>
-      <Text>This is what you've picked</Text>
-    </Content>
+    <StyleProvider style={getTheme(material)}>
+      <Content>
+        <Text>This is what you've picked</Text>
+      </Content>
+    </StyleProvider>
   );
 }
