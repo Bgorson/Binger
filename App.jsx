@@ -13,11 +13,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import WelcomeSplash from './screens/WelcomeSplash';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import getTheme from './native-base-theme/components';
+import material from './native-base-theme/variables/material';
 
 import { navigationRef } from './routes/rootNavigate';
 // RN Version > 0.63
 import { LogBox } from 'react-native';
-import { View } from 'native-base';
+import { View, StyleProvider } from 'native-base';
+
 LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
 const Tab = createBottomTabNavigator();
@@ -50,7 +53,9 @@ export default class App extends React.Component {
       ></WelcomeSplash>
     ) : (
       <>
-        <Header />
+        <StyleProvider style={getTheme(material)}>
+          <Header />
+        </StyleProvider>
         <NavigationContainer ref={navigationRef}>
           <Tab.Navigator
             initialRouteName="Home"

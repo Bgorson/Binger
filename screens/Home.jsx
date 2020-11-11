@@ -1,20 +1,37 @@
 import React, { Component } from 'react';
-import { Container, Header, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+import globalStyles, { colors } from '../styles/globalStyle';
+import { Container, Header, Text, StyleProvider } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-export default class LayoutExample extends Component {
-  render() {
-    return (
+import getTheme from '../native-base-theme/components';
+import material from '../native-base-theme/variables/material';
+
+const styles = StyleSheet.create({
+  text: {
+    textAlign: 'center',
+    color: 'black',
+    marginTop: '20%',
+    fontSize: 30,
+  },
+});
+export default function LayoutExample() {
+  return (
+    <StyleProvider style={getTheme(material)}>
       <Container>
         <Grid>
-          <Col style={{ backgroundColor: '#635DB7', height: 200 }}></Col>
-          <Col style={{ backgroundColor: '#00CE9F', height: 200 }}></Col>
+          <Col style={{ height: 200 }}>
+            <Text style={styles.text}>Welcome</Text>
+          </Col>
         </Grid>
-        <Text style={{ textAlign: 'center' }}>Welcome</Text>
+
         <Grid>
-          <Col style={{ backgroundColor: '#635DB7', height: 200 }}></Col>
-          <Col style={{ backgroundColor: '#00CE9F', height: 200 }}></Col>
+          <Col style={{ backgroundColor: colors.charcoal, height: 200 }}></Col>
+          <Col
+            style={{ backgroundColor: colors.redishOrange, height: 200 }}
+          ></Col>
+          <Col style={{ backgroundColor: colors.green, height: 200 }}></Col>
         </Grid>
       </Container>
-    );
-  }
+    </StyleProvider>
+  );
 }
