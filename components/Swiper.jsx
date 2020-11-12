@@ -14,7 +14,7 @@ import {
   Body,
   Icon,
 } from 'native-base';
-const cards = [
+let cards = [
   {
     text: 'The Office',
     name: 'The Office',
@@ -25,14 +25,34 @@ const cards = [
     name: 'Arrested Development',
     image: require('../assets/images/arrested-development.jpg'),
   },
+  {
+    text: 'Back To the Future',
+    name: 'Back To the Future',
+    image: require('../assets/images/back_to_the_future.jpg'),
+  },
+  {
+    text: 'Raiders of the Lost Ark',
+    name: 'Raiders of the Lost Ark',
+    image: require('../assets/images/Raiders-of-the-lost-ark.jpg'),
+  },
 ];
-export default function DeckSwiperPicker() {
+const removeFromList = (item, array) => {
+  return array.filter((value) => value !== item);
+};
+
+export default function DeckSwiperPicker(props) {
   return (
     <Container>
       <View>
         <DeckSwiper
-          onSwipeLeft={() => console.log('Swipped Left')}
-          onSwipeRight={() => console.log('Swipped Right')}
+          onSwipeLeft={(e) => {
+            props.onSwipeLeftStore(e);
+            cards = removeFromList(e, cards);
+          }}
+          onSwipeRight={(e) => {
+            props.onRightSwipeDiscard(e);
+            cards = removeFromList(e, cards);
+          }}
           dataSource={cards}
           renderItem={(item) => (
             <Card style={{ elevation: 3 }}>

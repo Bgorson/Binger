@@ -6,7 +6,10 @@ import {
   ImageBackground,
   useState,
 } from 'react-native';
-import { Container, Header, Content, Button } from 'native-base';
+import getTheme from '../native-base-theme/components';
+import material from '../native-base-theme/variables/material';
+import { Container, Header, Content, Button, StyleProvider } from 'native-base';
+
 const styles = StyleSheet.create({
   background: {
     width: '100%',
@@ -36,17 +39,21 @@ export default function WelcomeSplash(props) {
       source={require('../assets/images/background.png')}
       style={styles.background}
     >
-      <View>
-        <Text style={styles.text}>Binger</Text>
-      </View>
-      <View style={styles.button}>
-        <Button onPress={props.loggedIn} rounded info>
-          <Text style={styles.buttonText}>Login</Text>
-        </Button>
-        <Button onPress={props.loggedIn} rounded>
-          <Text style={styles.buttonText}>Signup</Text>
-        </Button>
-      </View>
+      <StyleProvider style={getTheme(material)}>
+        <>
+          <View>
+            <Text style={styles.text}>Binger</Text>
+          </View>
+          <View style={styles.button}>
+            <Button onPress={props.loggedIn} rounded info>
+              <Text style={styles.buttonText}>Login</Text>
+            </Button>
+            <Button onPress={props.loggedIn} rounded>
+              <Text style={styles.buttonText}>Signup</Text>
+            </Button>
+          </View>
+        </>
+      </StyleProvider>
     </ImageBackground>
   );
 }
