@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
+import { useFonts } from 'expo-font';
 import { Container, Header, Content, Button, StyleProvider } from 'native-base';
 
 const styles = StyleSheet.create({
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     marginTop: '50%',
     marginLeft: '20%',
+    fontFamily: 'Nunito',
   },
   button: {
     marginTop: '95%',
