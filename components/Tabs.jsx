@@ -26,7 +26,7 @@ export default function Tabs(props) {
           tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
         }}
       >
-        {() => <Home loggedOut={props.loggedOut} />}
+        {() => <Home navigation={props.navigation} />}
       </Tab.Screen>
 
       <Tab.Screen

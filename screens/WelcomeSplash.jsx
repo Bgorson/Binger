@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  useState,
-} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import LoginScreen from '../components/LoginButton';
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+import { Button, StyleProvider } from 'native-base';
+import { AppLoading } from 'expo';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
-import { useFonts } from 'expo-font';
-import { Container, Header, Content, Button, StyleProvider } from 'native-base';
 
 const styles = StyleSheet.create({
   background: {
@@ -36,6 +32,14 @@ const styles = StyleSheet.create({
 });
 
 export default function WelcomeSplash(props) {
+  const [fontsLoaded] = useFonts({
+    Inter_900Black,
+    Nunito: require('../assets/fonts/Nunito-Regular.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <ImageBackground
       source={require('../assets/images/background.png')}
@@ -47,11 +51,12 @@ export default function WelcomeSplash(props) {
             <Text style={styles.text}>Binger</Text>
           </View>
           <View style={styles.button}>
-            <Button onPress={props.loggedIn} rounded info>
+            {/* <Button onPress={props.loggedIn} rounded info>
               <Text style={styles.buttonText}>Login</Text>
-            </Button>
-            <Button onPress={props.loggedIn} rounded>
-              <Text style={styles.buttonText}>Signup</Text>
+            </Button> */}
+            <LoginScreen navigation={props.navigation} />
+            <Button onPress={() => props.navigation.navigate('Main')} rounded>
+              <Text style={styles.buttonText}>Skip</Text>
             </Button>
           </View>
         </>
