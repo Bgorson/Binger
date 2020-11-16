@@ -21,7 +21,7 @@ export default function Picked({ route, props }) {
       <Content>
         <Text>This is what you've picked</Text>
         {favoritedShowsArray.map((item) => (
-          <Text>{item}</Text>
+          <Text key={item.id}>{item.name}</Text>
         ))}
       </Content>
     </StyleProvider>
