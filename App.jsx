@@ -6,6 +6,8 @@ import { LogBox } from 'react-native';
 import { StyleProvider } from 'native-base';
 //React Navigation Setup
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import axios from 'axios';
+
 import Tabs from './components/Tabs';
 import Header from './components/Header';
 import Main from './screens/Main';

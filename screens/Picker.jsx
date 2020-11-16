@@ -31,11 +31,10 @@ const styles = StyleSheet.create({
 const likedShows = [];
 
 const onSwipeLeftStore = (item) => {
-  likedShows.push(item.name);
+  likedShows.push(item);
   console.log(item);
 };
 const onRightSwipeDiscard = (item) => {
-  likedShows.push(item.name);
   console.log(item);
 };
 
@@ -43,7 +42,7 @@ export default function Picker({ navigation }) {
   return (
     <StyleProvider style={getTheme(material)}>
       <>
-        <Text style={styles.text}>Welcome to the Picker</Text>
+        {/* <Text style={styles.text}>Welcome to the Picker</Text> */}
         <Swiper
           onSwipeLeftStore={onSwipeLeftStore}
           onRightSwipeDiscard={onRightSwipeDiscard}
