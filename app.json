@@ -26,7 +26,8 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "RAPID_API_KEY": "61270c9ef3mshff8e353b8c5bb48p1be705jsn94c90d9f22f0"
+      "RAPID_API_KEY": "61270c9ef3mshff8e353b8c5bb48p1be705jsn94c90d9f22f0",
+      "ImageAPI": "5fd6c7dc65d4a3ae3c7ff89924d74427"
     }
   }
 }
