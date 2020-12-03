@@ -41,8 +41,9 @@ export default function Tabs(props) {
           ),
         }}
         name="Picker"
-        component={PickerStackScreen}
-      />
+      >
+        {() => <PickerStackScreen navigation={props.navigation} />}
+      </Tab.Screen>
       <Tab.Screen
         name="About"
         component={About}

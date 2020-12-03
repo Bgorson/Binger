@@ -65,7 +65,7 @@ export default class DeckSwiperPicker extends Component {
       .then((response) => {
         // console.log('response', response.data.shows);
         this.setState({ showData: response.data });
-        console.log(this.state.showData);
+        // console.log(this.state.showData);
       })
       .catch((error) => {
         console.log(error);

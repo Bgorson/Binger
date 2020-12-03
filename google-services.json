@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "380873901031",
+    "firebase_url": "https://binger-3ac6e.firebaseio.com",
+    "project_id": "binger-3ac6e",
+    "storage_bucket": "binger-3ac6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380873901031:android:c67f75c060ad89df3ef342",
+        "android_client_info": {
+          "package_name": "com.Gorson.Binger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380873901031-m88e8etcd0idoh6lh2eun6a075sro8at.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Gorson.Binger",
+            "certificate_hash": "6132b0ae54ba4a6a72e995d303ba923839a07069"
+          }
+        },
+        {
+          "client_id": "380873901031-fhqb6sntrt7of8du9856gv67lt1dussu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEq6vvg-jH3CtbvXGiOAvhrB7mmsX_fI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380873901031-fhqb6sntrt7of8du9856gv67lt1dussu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "380873901031-4fubrqq7lk7qk3cdd72jmi8q6c71gqo3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Gorson.Binger"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

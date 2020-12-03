@@ -6,10 +6,13 @@ import Picked from '../screens/Picked';
 import About from '../screens/About';
 
 const SettingsStack = createStackNavigator();
-function PickerStackScreen() {
+function PickerStackScreen(props) {
+  console.log('props for picker Stack', props);
   return (
     <SettingsStack.Navigator>
-      <SettingsStack.Screen name="Picker" component={Picker} />
+      <SettingsStack.Screen name="Picker">
+        {() => <Picker />}
+      </SettingsStack.Screen>
       <SettingsStack.Screen name="Picked" component={Picked} />
     </SettingsStack.Navigator>
   );
