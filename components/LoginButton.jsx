@@ -21,8 +21,7 @@ export default class LoginScreen extends Component {
       });
 
       if (result.type === 'success') {
-        console.log('LoginScreen.js.js 21 | ', result.user.givenName);
-        console.log('What is result?: ', result);
+        console.log('LoginScreen.js.js 21 | ', result.user);
         const credential = firebase.auth.GoogleAuthProvider.credential(
           result.idToken,
           result.accessToken

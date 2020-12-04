@@ -30,15 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
-const likedShows = [];
 
-const onSwipeLeftStore = (item) => {
-  likedShows.push(item);
-  console.log(item);
-};
-const onRightSwipeDiscard = (item) => {
-  console.log(item);
-};
 // // Initialize Firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyDYQ39kqFcFqNFx6hWxAF5iJVIUq8RWxew',
@@ -56,20 +48,30 @@ if (!firebase.apps.length) {
 }
 
 function storeHighScore(user, score) {
-  firebase.database().ref(`users/${user.uid}`).set({
-    highscore: score,
-  });
+  if (user != null) {
+    firebase
+      .database()
+      .ref('users/' + user.uid)
+      .set({
+        highscore: score,
+      });
+  }
 }
 
 export default function Picker({ navigation }, props) {
+  const [user, setUser] = useState(null);
+  const [likedShows, setLikedShows] = useState([]);
+  const [rejectedShows, setRejectedShows] = useState([]);
+
   useEffect(() => {
-    const userId = 'Brandon';
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
         console.log('We are authenticated now!');
+        setUser(user);
+        console.log(user);
         firebase
           .database()
-          .ref(`users/${userId}`)
+          .ref('users/' + user)
           .on('value', (snapshot) => {
             const { highscore } = snapshot.val();
             console.log(`New high score: ${highscore}`);
@@ -79,10 +81,43 @@ export default function Picker({ navigation }, props) {
       }
     });
   }, []);
+
+  const onSwipeLeftStore = (item) => {
+    console.log('this is the item', item);
+    let array = likedShows;
+    console.log('array', array);
+    array.push(item);
+    setLikedShows(array);
+    console.log('SWIPED', item);
+    if (user != null) {
+      firebase
+        .database()
+        .ref('users/' + user.uid)
+        .set({
+          likedShows: likedShows,
+        });
+    }
+  };
+  const onRightSwipeDiscard = (item) => {
+    console.log('this is the item', item);
+    let array = rejectedShows;
+    console.log('array', array);
+    array.push(item);
+    setRejectedShows(array);
+    console.log('SWIPED', item);
+    if (user != null) {
+      firebase
+        .database()
+        .ref('users/' + user.uid)
+        .set({
+          rejectedShows: rejectedShows,
+        });
+    }
+  };
   return (
     <StyleProvider style={getTheme(material)}>
       <>
-        <Button onPress={() => storeHighScore('Brandon', 100)}>
+        <Button onPress={() => storeHighScore(user, 20)}>
           <Text>FireBase</Text>
         </Button>
         {/* <Text style={styles.text}>Welcome to the Picker</Text> */}

@@ -7,7 +7,6 @@ import About from '../screens/About';
 
 const SettingsStack = createStackNavigator();
 function PickerStackScreen(props) {
-  console.log('props for picker Stack', props);
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen name="Picker">
