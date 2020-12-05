@@ -7,7 +7,10 @@ import {
 } from '@expo/vector-icons';
 import Home from '../screens/Home';
 import About from '../screens/About';
+import Connect from '../screens/Connect';
+import Match from '../screens/Match';
 import PickerStackScreen from '../routes/PickStack';
+import MatchingStackScreen from '../routes/MatchStack';
 
 const Tab = createBottomTabNavigator();
 export default function Tabs(props) {
@@ -45,15 +48,26 @@ export default function Tabs(props) {
         {() => <PickerStackScreen navigation={props.navigation} />}
       </Tab.Screen>
       <Tab.Screen
-        name="About"
-        component={About}
+        name="QR Scanning"
+        component={Connect}
         options={{
-          tabBarLabel: 'About',
+          tabBarLabel: 'QR Scanning',
           tabBarIcon: () => (
-            <FontAwesome name="question-circle-o" size={24} color="black" />
+            <FontAwesome name="qrcode" size={24} color="black" />
           ),
         }}
       />
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Match',
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="ghost" size={24} color="black" />
+          ),
+        }}
+        name="Matching"
+      >
+        {() => <MatchingStackScreen navigation={props.navigation} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
