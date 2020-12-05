@@ -44,15 +44,6 @@ const nextOptions = {
   },
 };
 
-// onSwipeLeft={(e) => {
-//   props.onSwipeLeftStore(e);
-//   // removeFromList(e, cards);
-// }}
-// onSwipeRight={(e) => {
-//   props.onRightSwipeDiscard(e);
-//   // removeFromList(e, cards);
-// }}
-
 export default class DeckSwiperPicker extends Component {
   constructor() {
     super();
@@ -65,7 +56,7 @@ export default class DeckSwiperPicker extends Component {
       .then((response) => {
         // console.log('response', response.data.shows);
         this.setState({ showData: response.data });
-        console.log(this.state.showData);
+        // console.log(this.state.showData);
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +77,8 @@ export default class DeckSwiperPicker extends Component {
             <View>
               <DeckSwiper
                 dataSource={this.state.showData}
+                onSwipeLeft={(e) => this.props.onSwipeLeftStore(e)}
+                onSwipeRight={(e) => this.props.onRightSwipeDiscard(e)}
                 renderItem={(item) => (
                   <Card style={{ elevation: 3 }}>
                     <CardItem>

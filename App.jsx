@@ -7,6 +7,8 @@ import WelcomeSplash from './screens/WelcomeSplash';
 // RN Version > 0.6
 
 LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+LogBox.ignoreLogs(['Setting a timer']);
+
 const MainNavigator = createSwitchNavigator({
   Login: { screen: WelcomeSplash },
   Main: { screen: Main },
