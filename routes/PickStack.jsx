@@ -10,7 +10,7 @@ function PickerStackScreen(props) {
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen name="Picker">
-        {() => <Picker />}
+        {(props) => <Picker navigation={props.navigation} />}
       </SettingsStack.Screen>
       <SettingsStack.Screen name="Picked" component={Picked} />
     </SettingsStack.Navigator>

@@ -47,35 +47,24 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-function storeHighScore(user, score) {
-  if (user != null) {
-    firebase
-      .database()
-      .ref('users/' + user.uid)
-      .set({
-        highscore: score,
-      });
-  }
-}
-
 export default function Picker({ navigation }, props) {
   const [user, setUser] = useState(null);
   const [likedShows, setLikedShows] = useState([]);
   const [rejectedShows, setRejectedShows] = useState([]);
 
   useEffect(() => {
+    firebase
+      .database()
+      .ref('/users/' + firebase.auth().currentUser.uid + '/shows')
+      .on('value', (snapshot) => {
+        const shows = snapshot.val();
+        setLikedShows(shows.likedShows);
+        setRejectedShows(shows.rejectedShows);
+      });
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
         console.log('We are authenticated now!');
         setUser(user);
-        console.log(user);
-        firebase
-          .database()
-          .ref('users/' + user)
-          .on('value', (snapshot) => {
-            const { highscore } = snapshot.val();
-            console.log(`New high score: ${highscore}`);
-          });
       } else {
         console.log('We are NOT authenticated');
       }
@@ -83,33 +72,27 @@ export default function Picker({ navigation }, props) {
   }, []);
 
   const onSwipeLeftStore = (item) => {
-    console.log('this is the item', item);
-    let array = likedShows;
-    console.log('array', array);
+    const array = likedShows;
     array.push(item);
     setLikedShows(array);
-    console.log('SWIPED', item);
     if (user != null) {
       firebase
         .database()
-        .ref('users/' + user.uid)
-        .set({
+        .ref('users/' + user.uid + '/shows')
+        .update({
           likedShows: likedShows,
         });
     }
   };
   const onRightSwipeDiscard = (item) => {
-    console.log('this is the item', item);
     let array = rejectedShows;
-    console.log('array', array);
     array.push(item);
     setRejectedShows(array);
-    console.log('SWIPED', item);
     if (user != null) {
       firebase
         .database()
-        .ref('users/' + user.uid)
-        .set({
+        .ref('users/' + user.uid + '/shows')
+        .update({
           rejectedShows: rejectedShows,
         });
     }
@@ -117,7 +100,7 @@ export default function Picker({ navigation }, props) {
   return (
     <StyleProvider style={getTheme(material)}>
       <>
-        <Button onPress={() => storeHighScore(user, 20)}>
+        <Button onPress={() => console.log(likedShows)}>
           <Text>FireBase</Text>
         </Button>
         {/* <Text style={styles.text}>Welcome to the Picker</Text> */}

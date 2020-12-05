@@ -31,6 +31,7 @@ export default class LoginScreen extends Component {
           username: result.user.givenName,
           id: result.user.id,
         }); //after Google login redirect to Profile
+
         return result.accessToken;
       } else {
         return { cancelled: true };
