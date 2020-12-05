@@ -36,12 +36,14 @@ export default function Scanner() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    console.log(data);
+    console.log('what is friends', friends);
     friends.push(data);
 
     firebase
       .database()
       .ref('users/' + user + '/friends')
-      .update({
+      .set({
         friends,
       });
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);

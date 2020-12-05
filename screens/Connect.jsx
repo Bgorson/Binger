@@ -10,6 +10,7 @@ import { Container, Header, StyleProvider, Button } from 'native-base';
 
 export default function Connect(props) {
   const [isScanning, setIsScanning] = useState(false);
+  console.log(firebase.auth().currentUser);
   return (
     <>
       {isScanning ? (
@@ -18,7 +19,13 @@ export default function Connect(props) {
             <Text style={{ textAlign: 'center', marginTop: 300 }}>
               Find and Seek Matches here
             </Text>
-            <QRCode value={firebase.auth().currentUser.uid} />
+            <QRCode
+              value={
+                firebase.auth().currentUser.uid +
+                '|' +
+                firebase.auth().currentUser.providerData[0].displayName
+              }
+            />
           </View>
         </StyleProvider>
       ) : (
