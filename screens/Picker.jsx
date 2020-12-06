@@ -56,10 +56,12 @@ export default function Picker({ navigation }, props) {
     firebase
       .database()
       .ref('/users/' + firebase.auth().currentUser.uid + '/shows')
-      .on('value', (snapshot) => {
+      .once('value', (snapshot) => {
         const shows = snapshot.val();
-        setLikedShows(shows.likedShows);
-        setRejectedShows(shows.rejectedShows);
+        if (shows) {
+          setLikedShows(shows.likedShows);
+          setRejectedShows(shows.rejectedShows);
+        }
       });
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
@@ -72,7 +74,7 @@ export default function Picker({ navigation }, props) {
   }, []);
 
   const onSwipeLeftStore = (item) => {
-    const array = likedShows;
+    const array = likedShows || [];
     array.push(item);
     setLikedShows(array);
     if (user != null) {
@@ -85,7 +87,7 @@ export default function Picker({ navigation }, props) {
     }
   };
   const onRightSwipeDiscard = (item) => {
-    let array = rejectedShows;
+    let array = rejectedShows || [];
     array.push(item);
     setRejectedShows(array);
     if (user != null) {
