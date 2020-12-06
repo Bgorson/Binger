@@ -29,41 +29,37 @@ export default function Matches(props) {
         const shows = snapshot.val();
         if (shows) {
           setMyLikedShows(shows.likedShows);
-          console.log('My Likes', myLikedShows);
         }
       });
     firebase
       .database()
       .ref('/users/' + props.route.params.friendID + '/shows')
       .on('value', (snapshot) => {
-        const shows = snapshot.val();
-        if (shows) {
-          setFriendLikedShows(shows.likedShows);
-          console.log("My Friend's Likes", friendLikedShows);
+        const friendShows = snapshot.val();
+        if (friendShows) {
+          setFriendLikedShows(friendShows.likedShows);
         }
       });
-    const myFavoriteTitles = [];
-    for (let i = 0; i < myLikedShows.length; i++) {
-      myFavoriteTitles.push(myLikedShows[i].title);
-    }
-
-    const friendFavoriteTitle = [];
-    for (let i = 0; i < friendLikedShows.length; i++) {
-      friendFavoriteTitle.push(friendLikedShows[i].title);
-    }
-
-    const intersection = friendFavoriteTitle.filter((element) =>
-      myFavoriteTitles.includes(element)
-    );
-    console.log('intersection', intersection);
-    setMatches(intersection);
   }, []);
+  const myFavoriteTitles = [];
+  for (let i = 0; i < myLikedShows.length; i++) {
+    myFavoriteTitles.push(myLikedShows[i].title);
+  }
 
+  const friendFavoriteTitle = [];
+  for (let i = 0; i < friendLikedShows.length; i++) {
+    friendFavoriteTitle.push(friendLikedShows[i].title);
+  }
+
+  const intersection = friendFavoriteTitle.filter((element) =>
+    myFavoriteTitles.includes(element)
+  );
+  console.log('intersection', intersection);
   console.log('match props', props.route.params.friendID);
   return (
     // <StyleProvider style={getTheme(material)}>
     <Content>
-      {matches.map((item, index) => (
+      {intersection.map((item, index) => (
         <Text key={index}>{item}</Text>
       ))}
     </Content>
