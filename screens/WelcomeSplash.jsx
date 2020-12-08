@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import * as firebase from 'firebase';
+
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import LoginScreen from '../components/LoginButton';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
@@ -32,6 +34,19 @@ const styles = StyleSheet.create({
 });
 
 export default function WelcomeSplash(props) {
+  // DISABLE TO ALLOW ACCOUNT SWITCH
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        console.log('We are authenticated now on the login screen!', user);
+        props.navigation.navigate('Main', {
+          user: user,
+        });
+      } else {
+        console.log('We are NOT authenticated on the login screen');
+      }
+    });
+  });
   const [fontsLoaded] = useFonts({
     Inter_900Black,
     Nunito: require('../assets/fonts/Nunito-Regular.ttf'),
@@ -55,9 +70,9 @@ export default function WelcomeSplash(props) {
               <Text style={styles.buttonText}>Login</Text>
             </Button> */}
             <LoginScreen navigation={props.navigation} />
-            <Button onPress={() => props.navigation.navigate('Main')} rounded>
-              <Text style={styles.buttonText}>Skip</Text>
-            </Button>
+            {/* <Button onPress={() => props.navigation.navigate('Main')} rounded> */}
+            {/* <Text style={styles.buttonText}>Skip</Text> */}
+            {/* </Button> */}
           </View>
         </>
       </StyleProvider>

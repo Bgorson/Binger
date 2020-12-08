@@ -33,7 +33,8 @@ export default function Home(props) {
         <Grid>
           <Col style={{ height: 200 }}>
             <Text style={styles.text}>
-              Welcome, {props.navigation.getParam('username')}
+              Welcome,
+              {props.navigation.getParam('username') || props.displayName}
             </Text>
           </Col>
         </Grid>
