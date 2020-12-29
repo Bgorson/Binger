@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import * as Google from 'expo-google-app-auth';
 import { Container, Text, StyleProvider, Button } from 'native-base';
 import { Col, Grid } from 'react-native-easy-grid';
 import { colors } from '../styles/globalStyle';
@@ -10,11 +11,11 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: 'black',
-    marginTop: '20%',
+    // marginTop: '20%',
     fontSize: 30,
   },
   button: {
-    marginTop: '95%',
+    // marginTop: '95%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
+
 export default function Home(props) {
   return (
     <StyleProvider style={getTheme(material)}>
@@ -31,7 +33,24 @@ export default function Home(props) {
         <Grid>
           <Col style={{ height: 200 }}>
             <Text style={styles.text}>
-              Welcome, {props.navigation.getParam('username')}
+              Welcome,
+              {props.navigation.getParam('username') || props.displayName}
+            </Text>
+          </Col>
+        </Grid>
+        <Grid>
+          <Col>
+            <Text style={styles.text}>How to Use:</Text>
+            <Text>
+              Use the Picker below to select shows you're interested in.
+            </Text>
+            <Text>
+              Swipe Left on shows you want to watch, Right on the ones you
+              don't.
+            </Text>
+            <Text>
+              Scan Someone's QR Code to match with them and see what shows you
+              have in common.
             </Text>
           </Col>
         </Grid>
@@ -40,12 +59,6 @@ export default function Home(props) {
           <Button onPress={() => props.navigation.navigate('Login')} rounded>
             <Text style={styles.buttonText}>Go back to SplashScreen</Text>
           </Button>
-
-          <Col style={{ backgroundColor: colors.charcoal, height: 200 }}></Col>
-          <Col
-            style={{ backgroundColor: colors.redishOrange, height: 200 }}
-          ></Col>
-          <Col style={{ backgroundColor: colors.green, height: 200 }}></Col>
         </Grid>
       </Container>
     </StyleProvider>

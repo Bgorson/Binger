@@ -8,6 +8,7 @@ import material from '../native-base-theme/variables/material';
 import { navigationRef } from '../routes/rootNavigate';
 
 export default function Main(props) {
+  // console.log('These are props available in main', props);
   return (
     <>
       <StyleProvider style={getTheme(material)}>

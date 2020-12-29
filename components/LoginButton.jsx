@@ -30,7 +30,8 @@ export default class LoginScreen extends Component {
         this.props.navigation.navigate('Main', {
           username: result.user.givenName,
           id: result.user.id,
-        }); //after Google login redirect to Profile
+          token: result.accessToken,
+        }); //after Google login redirect to Main
 
         return result.accessToken;
       } else {

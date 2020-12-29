@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   FontAwesome,
@@ -14,6 +15,7 @@ import MatchingStackScreen from '../routes/MatchStack';
 
 const Tab = createBottomTabNavigator();
 export default function Tabs(props) {
+  console.log('Disaply here?', props.navigation);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -29,7 +31,14 @@ export default function Tabs(props) {
           tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
         }}
       >
-        {() => <Home navigation={props.navigation} />}
+        {() => (
+          <Home
+            displayName={
+              props.navigation?.state?.params?.user?.displayName || 'MISSING'
+            }
+            navigation={props.navigation}
+          />
+        )}
       </Tab.Screen>
 
       <Tab.Screen
