@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     marginTop: '50%',
     marginLeft: '20%',
-    fontFamily: 'Nunito',
+    // fontFamily: 'Nunito',
   },
   button: {
     marginTop: '95%',
@@ -47,14 +47,14 @@ export default function WelcomeSplash(props) {
       }
     });
   });
-  const [fontsLoaded] = useFonts({
-    Inter_900Black,
-    Nunito: require('../assets/fonts/Nunito-Regular.ttf'),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   Inter_900Black,
+  //   Nunito: require('../assets/fonts/Nunito-Regular.ttf'),
+  // });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  // if (!fontsLoaded) {
+  //   return <AppLoading />;
+  // }
   return (
     <ImageBackground
       source={require('../assets/images/background.png')}
