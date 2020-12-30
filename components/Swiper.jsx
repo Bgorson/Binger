@@ -17,22 +17,10 @@ import {
   Icon,
 } from 'native-base';
 
-// const options = {
-//   method: 'GET',
-//   url: 'https://ott-details.p.rapidapi.com/getnew',
-//   params: { region: 'US', page: 1 },
-//   headers: {
-//     'x-rapidapi-key': Constants.manifest.extra.RAPID_API_KEY,
-//     'x-rapidapi-host': 'ott-details.p.rapidapi.com',
-//   },
-// };
-
-// https://api.themoviedb.org/3/search/tv?api_key=5fd6c7dc65d4a3ae3c7ff89924d74427&language=en-US&page=1&query=Breaking%20Bad&include_adult=false
-
 export default class DeckSwiperPicker extends Component {
   constructor() {
     super();
-    this.state = { showData: [], offset: 0 };
+    this.state = { showData: [], isLoading: true, offset: 0 };
   }
 
   componentDidMount() {
@@ -43,9 +31,7 @@ export default class DeckSwiperPicker extends Component {
         params: { type: 'tv', offset: this.state.offset },
       })
       .then((response) => {
-        // console.log('response', response.data.shows);
-        this.setState({ showData: response.data, offset: 50 });
-        // console.log(this.state.showData);
+        this.setState({ showData: response.data, offset: 50, isLoading: false });
       })
       .catch((error) => {
         console.log(error);
@@ -53,8 +39,8 @@ export default class DeckSwiperPicker extends Component {
   }
 
   updateSwipeData() {
-    console.log('getting new list at: ', this.state.offset);
     const { offset } = this.state;
+    this.setState({ isLoading: true });
     axios
       .request({
         method: 'GET',
@@ -65,6 +51,7 @@ export default class DeckSwiperPicker extends Component {
         this.setState({
           showData: response.data,
           offset: offset + 50,
+          isLoading: false,
         });
       })
       .catch((error) => {
@@ -73,10 +60,9 @@ export default class DeckSwiperPicker extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <>
-        {this.state.showData.length <= 1 ? (
+        {this.state.isLoading || this.state.showData.length <= 1 ? (
           <Container>
             <View>
               <Text> Loading</Text>
