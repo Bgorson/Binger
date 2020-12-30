@@ -21,7 +21,7 @@ export default class LoginScreen extends Component {
       });
 
       if (result.type === 'success') {
-        console.log('LoginScreen.js.js 21 | ', result.user);
+        // console.log('LoginScreen.js.js 21 | ', result.user);
         const credential = firebase.auth.GoogleAuthProvider.credential(
           result.idToken,
           result.accessToken
@@ -38,7 +38,7 @@ export default class LoginScreen extends Component {
         return { cancelled: true };
       }
     } catch (e) {
-      console.log('LoginScreen.js.js 30 | Error with login', e);
+      // console.log('LoginScreen.js.js 30 | Error with login', e);
       return { error: true };
     }
   };

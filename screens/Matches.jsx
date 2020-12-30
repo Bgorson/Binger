@@ -54,8 +54,8 @@ export default function Matches(props) {
   const intersection = friendFavoriteTitle.filter((element) =>
     myFavoriteTitles.includes(element)
   );
-  console.log('intersection', intersection);
-  console.log('match props', props.route.params.friendID);
+  // console.log('intersection', intersection);
+  // console.log('match props', props.route.params.friendID);
   return (
     // <StyleProvider style={getTheme(material)}>
     <Content>

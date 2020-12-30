@@ -27,7 +27,6 @@ export default function Match(props) {
           friendObject.push(entry);
         });
         setFriends(friendObject);
-        console.log(friendObject);
       });
   }, []);
   return (

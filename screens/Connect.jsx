@@ -10,7 +10,6 @@ import { Container, Header, StyleProvider, Button } from 'native-base';
 
 export default function Connect(props) {
   const [isScanning, setIsScanning] = useState(false);
-  console.log(firebase.auth().currentUser);
   return (
     <>
       {isScanning ? (

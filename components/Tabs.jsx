@@ -15,7 +15,6 @@ import MatchingStackScreen from '../routes/MatchStack';
 
 const Tab = createBottomTabNavigator();
 export default function Tabs(props) {
-  console.log('Disaply here?', props.navigation);
   return (
     <Tab.Navigator
       initialRouteName="Home"

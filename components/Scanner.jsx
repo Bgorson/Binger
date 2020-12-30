@@ -13,7 +13,6 @@ export default function Scanner() {
     firebase.auth().onAuthStateChanged((userDB) => {
       if (userDB) {
         setUser(userDB.uid);
-        console.log('still logged in');
         firebase
           .database()
           .ref('/users/' + firebase.auth().currentUser.uid + '/friends')
@@ -24,7 +23,6 @@ export default function Scanner() {
             }
           });
       } else {
-        console.log('nothing');
       }
     });
 
@@ -36,8 +34,6 @@ export default function Scanner() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    console.log(data);
-    console.log('what is friends', friends);
     friends.push(data);
 
     firebase

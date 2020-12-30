@@ -55,9 +55,10 @@ export default function Picker({ navigation }, props) {
   useEffect(() => {
     firebase
       .database()
-      .ref('/users/' + firebase.auth().currentUser.uid + '/shows')
+      .ref(`/users/${firebase.auth().currentUser.uid}/shows`)
       .once('value', (snapshot) => {
         const shows = snapshot.val();
+        console.log('all the liked shows here', shows.likedShows);
         if (shows) {
           setLikedShows(shows.likedShows);
           setRejectedShows(shows.rejectedShows);
@@ -80,22 +81,22 @@ export default function Picker({ navigation }, props) {
     if (user != null) {
       firebase
         .database()
-        .ref('users/' + user.uid + '/shows')
+        .ref(`users/${user.uid}/shows`)
         .update({
-          likedShows: likedShows,
+          likedShows,
         });
     }
   };
   const onRightSwipeDiscard = (item) => {
-    let array = rejectedShows || [];
+    const array = rejectedShows || [];
     array.push(item);
     setRejectedShows(array);
     if (user != null) {
       firebase
         .database()
-        .ref('users/' + user.uid + '/shows')
+        .ref(`users/${user.uid}/shows`)
         .update({
-          rejectedShows: rejectedShows,
+          rejectedShows,
         });
     }
   };
