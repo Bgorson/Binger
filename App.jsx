@@ -3,6 +3,7 @@ import { LogBox } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import Main from './screens/Main';
 import WelcomeSplash from './screens/WelcomeSplash';
+import Drawer from './components/Drawer';
 
 // RN Version > 0.6
 
@@ -11,7 +12,8 @@ LogBox.ignoreLogs(['Setting a timer']);
 
 const MainNavigator = createSwitchNavigator({
   Login: { screen: WelcomeSplash },
-  Main: { screen: Main },
+  DrawerOpen: { screen: Drawer },
+  Main: { screen: Main }
 });
 
 const App = createAppContainer(MainNavigator);

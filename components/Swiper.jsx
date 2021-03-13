@@ -14,7 +14,7 @@ import {
   Text,
   Left,
   Body,
-  Icon,
+  Icon
 } from 'native-base';
 
 export default class DeckSwiperPicker extends Component {
@@ -24,18 +24,45 @@ export default class DeckSwiperPicker extends Component {
   }
 
   componentDidMount() {
-    axios
-      .request({
-        method: 'GET',
-        url: 'https://arcane-scrubland-73688.herokuapp.com/',
-        params: { type: 'tv', offset: this.state.offset },
-      })
-      .then((response) => {
-        this.setState({ showData: response.data, offset: 50, isLoading: false });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(this.state.showData.length);
+
+    if (this.state.showData.length <= 0) {
+      console.log('loop');
+      console.log(this.props.likedShows);
+      axios
+        .request({
+          method: 'GET',
+          url: 'https://arcane-scrubland-73688.herokuapp.com/',
+          params: { type: 'tv', offset: this.state.offset }
+        })
+        .then(response => {
+          const showAPIArray = response.data;
+          let firebaseArray;
+          if (this.props.likedShows) {
+            firebaseArray = this.props.likedShows.concat(
+              this.props.rejectedShows
+            );
+          } else {
+            firebaseArray = this.props.rejectedShows;
+          }
+
+          console.log('array', firebaseArray);
+          var freshShows = showAPIArray.filter(function(objFromA) {
+            return !firebaseArray.find(function(objFromB) {
+              return objFromA.title === objFromB.title;
+            });
+          });
+
+          this.setState({
+            showData: freshShows,
+            offset: this.state.offset + 50,
+            isLoading: false
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 
   updateSwipeData() {
@@ -45,16 +72,16 @@ export default class DeckSwiperPicker extends Component {
       .request({
         method: 'GET',
         url: 'https://arcane-scrubland-73688.herokuapp.com/',
-        params: { type: 'tv', offset },
+        params: { type: 'tv', offset }
       })
-      .then((response) => {
+      .then(response => {
         this.setState({
           showData: response.data,
           offset: offset + 50,
-          isLoading: false,
+          isLoading: false
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -62,7 +89,7 @@ export default class DeckSwiperPicker extends Component {
   render() {
     return (
       <>
-        {this.state.isLoading || this.state.showData.length <= 1 ? (
+        {this.state.isLoading ? (
           <Container>
             <View>
               <Text> Loading</Text>
@@ -75,9 +102,9 @@ export default class DeckSwiperPicker extends Component {
                 dataSource={this.state.showData}
                 looping={false}
                 renderEmpty={() => this.updateSwipeData()}
-                onSwipeLeft={(e) => this.props.onSwipeLeftStore(e)}
-                onSwipeRight={(e) => this.props.onRightSwipeDiscard(e)}
-                renderItem={(item) => (
+                onSwipeLeft={e => this.props.onSwipeLeftStore(e)}
+                onSwipeRight={e => this.props.onRightSwipeDiscard(e)}
+                renderItem={item => (
                   <Card style={{ elevation: 3 }}>
                     <CardItem>
                       <Left>
@@ -93,7 +120,7 @@ export default class DeckSwiperPicker extends Component {
                     <CardItem cardBody>
                       <Image
                         source={{
-                          uri: item.ImageURL,
+                          uri: item.ImageURL
                         }}
                         style={{ flex: 1, height: 300 }}
                       />

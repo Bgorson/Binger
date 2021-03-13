@@ -11,9 +11,9 @@ export default function Main(props) {
   // console.log('These are props available in main', props);
   return (
     <>
-      <StyleProvider style={getTheme(material)}>
+      {/* <StyleProvider style={getTheme(material)}>
         <Header />
-      </StyleProvider>
+      </StyleProvider> */}
       <NavigationContainer ref={navigationRef}>
         <Tabs navigation={props.navigation} />
       </NavigationContainer>

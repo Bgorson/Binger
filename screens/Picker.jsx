@@ -10,7 +10,7 @@ import {
   Button,
   Icon,
   Text,
-  StyleProvider,
+  StyleProvider
 } from 'native-base';
 import getTheme from '../native-base-theme/components';
 import material from '../native-base-theme/variables/material';
@@ -19,16 +19,16 @@ import { globalStyles } from '../styles/globalStyle';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   text: {
     textAlign: 'center',
-    color: 'black',
+    color: 'black'
   },
   bottom: {
     flex: 1,
-    justifyContent: 'flex-end',
-  },
+    justifyContent: 'flex-end'
+  }
 });
 
 // // Initialize Firebase
@@ -40,7 +40,7 @@ const firebaseConfig = {
   storageBucket: 'binger-3ac6e.appspot.com',
   messagingSenderId: '380873901031',
   appId: '1:380873901031:web:fae74172c3cd03e83ef342',
-  measurementId: 'G-GYG7DECGBM',
+  measurementId: 'G-GYG7DECGBM'
 };
 
 if (!firebase.apps.length) {
@@ -56,15 +56,15 @@ export default function Picker({ navigation }, props) {
     firebase
       .database()
       .ref(`/users/${firebase.auth().currentUser.uid}/shows`)
-      .once('value', (snapshot) => {
+      .once('value', snapshot => {
         const shows = snapshot.val();
-        console.log('all the liked shows here', shows.likedShows);
+        // console.log('all the liked shows here', shows.likedShows);
         if (shows) {
           setLikedShows(shows.likedShows);
           setRejectedShows(shows.rejectedShows);
         }
       });
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user != null) {
         console.log('We are authenticated now!');
         setUser(user);
@@ -74,7 +74,7 @@ export default function Picker({ navigation }, props) {
     });
   }, []);
 
-  const onSwipeLeftStore = (item) => {
+  const onSwipeLeftStore = item => {
     const array = likedShows || [];
     array.push(item);
     setLikedShows(array);
@@ -83,11 +83,11 @@ export default function Picker({ navigation }, props) {
         .database()
         .ref(`users/${user.uid}/shows`)
         .update({
-          likedShows,
+          likedShows
         });
     }
   };
-  const onRightSwipeDiscard = (item) => {
+  const onRightSwipeDiscard = item => {
     const array = rejectedShows || [];
     array.push(item);
     setRejectedShows(array);
@@ -96,7 +96,7 @@ export default function Picker({ navigation }, props) {
         .database()
         .ref(`users/${user.uid}/shows`)
         .update({
-          rejectedShows,
+          rejectedShows
         });
     }
   };
@@ -108,6 +108,8 @@ export default function Picker({ navigation }, props) {
         </Button>
         {/* <Text style={styles.text}>Welcome to the Picker</Text> */}
         <Swiper
+          rejectedShows={rejectedShows ? rejectedShows : []}
+          likedShows={likedShows ? likedShows : []}
           onSwipeLeftStore={onSwipeLeftStore}
           onRightSwipeDiscard={onRightSwipeDiscard}
         />
@@ -117,7 +119,7 @@ export default function Picker({ navigation }, props) {
         <Button
           onPress={() => {
             navigation.navigate('Picked', {
-              favoritedShowsArray: likedShows,
+              favoritedShowsArray: likedShows
             });
           }}
           block
