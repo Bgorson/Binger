@@ -5,6 +5,7 @@ import { Container, Text, StyleProvider, Button } from 'native-base';
 import { Col, Grid } from 'react-native-easy-grid';
 import { colors } from '../styles/globalStyle';
 import getTheme from '../native-base-theme/components';
+import Header from '../components/Header';
 import material from '../native-base-theme/variables/material';
 
 const styles = StyleSheet.create({
@@ -12,24 +13,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'black',
     // marginTop: '20%',
-    fontSize: 30,
+    fontSize: 30
   },
   button: {
     // marginTop: '95%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   buttonText: {
     textAlign: 'center',
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 export default function Home(props) {
   return (
     <StyleProvider style={getTheme(material)}>
       <Container>
+        <StyleProvider style={getTheme(material)}>
+          <Header />
+        </StyleProvider>
         <Grid>
           <Col style={{ height: 200 }}>
             <Text style={styles.text}>

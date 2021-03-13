@@ -9,28 +9,15 @@ import material from '../native-base-theme/variables/material';
 import { Container, Header, StyleProvider, Button } from 'native-base';
 
 export default function Connect(props) {
-  const [isScanning, setIsScanning] = useState(false);
   return (
     <>
-      {isScanning ? (
-        <StyleProvider style={getTheme(material)}>
-          <View>
-            <Text style={{ textAlign: 'center', marginTop: 300 }}>
-              Find and Seek Matches here
-            </Text>
-            <QRCode
-              value={
-                firebase.auth().currentUser.uid +
-                '|' +
-                firebase.auth().currentUser.providerData[0].displayName
-              }
-            />
-          </View>
-        </StyleProvider>
-      ) : (
-        <Scanner />
-      )}
-      <Button title="Toggle Scan" onPress={() => setIsScanning(!isScanning)}>
+      <Scanner />
+      <Button
+        title='Toggle Scan'
+        onPress={() => {
+          props.navigation.navigate('ConnectCode');
+        }}
+      >
         <Text>Toggle QR Scanner</Text>
       </Button>
     </>

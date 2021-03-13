@@ -16,10 +16,10 @@ export default function Match(props) {
     firebase
       .database()
       .ref('/users/' + firebase.auth().currentUser.uid + '/friends')
-      .once('value', (snapshot) => {
+      .once('value', snapshot => {
         const valueDB = snapshot.val().friends;
         const friendObject = [];
-        valueDB.forEach((value) => {
+        valueDB.forEach(value => {
           let entry = {};
           let arrayOfValues = value.split('|');
           entry.id = arrayOfValues[0];
@@ -30,24 +30,22 @@ export default function Match(props) {
       });
   }, []);
   return (
-    <StyleProvider style={getTheme(material)}>
-      <View>
-        <Text style={{ textAlign: 'center', marginTop: 300 }}>
-          A List of matches will appear here
-        </Text>
-        {friends.map((item, index) => (
-          <Button
-            key={index}
-            onPress={() => {
-              props.navigation.navigate('Matches', {
-                friendID: item.id,
-              });
-            }}
-          >
-            <Text>{item.name}</Text>
-          </Button>
-        ))}
-      </View>
-    </StyleProvider>
+    <>
+      <Text style={{ textAlign: 'center' }}>
+        A List of matches will appear here
+      </Text>
+      {friends.map((item, index) => (
+        <Button
+          key={index}
+          onPress={() => {
+            props.navigation.navigate('Matches', {
+              friendID: item.id
+            });
+          }}
+        >
+          <Text>{item.name}</Text>
+        </Button>
+      ))}
+    </>
   );
 }
