@@ -32,9 +32,8 @@ A gallery of chosen shows
 
 Relevant information about the platform
 
-### About:
-
-Basic creator information
+### Matches:
+Shows what matches they have with friends.
 
 ### General:
 
@@ -44,16 +43,5 @@ Establish default styles and look of application
 
 Connecting to a nearby device to find matches
 
-Authorization/Login
+Improve Overall Look
 
-Pulling real data from API to populate available shows
-
-# Initial API Logic
-
-Get a collection of New arrivals
-Store in a variable
-Filter to only those with Netflix Streaming
-Update Variable
-Go through Results
-When all are completed
-Get a collection of new arrivals on Page 2- Repeat process
