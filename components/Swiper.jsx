@@ -20,7 +20,7 @@ import {
 export default class DeckSwiperPicker extends Component {
   constructor() {
     super();
-    this.state = { showData: [], isLoading: true, offset: 0 };
+    this.state = { showData: [], isLoading: true, offset: 0, open: false };
   }
 
   componentDidMount() {
@@ -28,10 +28,14 @@ export default class DeckSwiperPicker extends Component {
       .request({
         method: 'GET',
         url: 'https://arcane-scrubland-73688.herokuapp.com/',
-        params: { type: 'tv', offset: this.state.offset },
+        params: { type: 'tv', filter: 'netflix', offset: this.state.offset },
       })
       .then((response) => {
-        this.setState({ showData: response.data, offset: 50, isLoading: false });
+        this.setState({
+          showData: response.data,
+          offset: 50,
+          isLoading: false,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -45,7 +49,7 @@ export default class DeckSwiperPicker extends Component {
       .request({
         method: 'GET',
         url: 'https://arcane-scrubland-73688.herokuapp.com/',
-        params: { type: 'tv', offset },
+        params: { type: 'tv', filter: 'netflix', offset },
       })
       .then((response) => {
         this.setState({
@@ -79,6 +83,7 @@ export default class DeckSwiperPicker extends Component {
                 onSwipeRight={(e) => this.props.onRightSwipeDiscard(e)}
                 renderItem={(item) => (
                   <Card style={{ elevation: 3 }}>
+                    {this.state.open ? <Text>{item.description}</Text> : null}
                     <CardItem>
                       <Left>
                         {/* <Thumbnail
@@ -100,6 +105,16 @@ export default class DeckSwiperPicker extends Component {
                     </CardItem>
                     <CardItem>
                       <Text>{item.title}</Text>
+                      <Button
+                        primary
+                        onPress={() =>
+                          this.setState((prevState) => ({
+                            open: !prevState.open,
+                          }))
+                        }
+                      >
+                        <Text>Click for description</Text>
+                      </Button>
                     </CardItem>
                   </Card>
                 )}

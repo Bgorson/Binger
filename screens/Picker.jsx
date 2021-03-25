@@ -79,12 +79,9 @@ export default function Picker({ navigation }, props) {
     array.push(item);
     setLikedShows(array);
     if (user != null) {
-      firebase
-        .database()
-        .ref(`users/${user.uid}/shows`)
-        .update({
-          likedShows,
-        });
+      firebase.database().ref(`users/${user.uid}/shows`).update({
+        likedShows,
+      });
     }
   };
   const onRightSwipeDiscard = (item) => {
@@ -92,20 +89,17 @@ export default function Picker({ navigation }, props) {
     array.push(item);
     setRejectedShows(array);
     if (user != null) {
-      firebase
-        .database()
-        .ref(`users/${user.uid}/shows`)
-        .update({
-          rejectedShows,
-        });
+      firebase.database().ref(`users/${user.uid}/shows`).update({
+        rejectedShows,
+      });
     }
   };
   return (
     <StyleProvider style={getTheme(material)}>
       <>
-        <Button onPress={() => console.log(likedShows)}>
+        {/* <Button onPress={() => console.log(likedShows)}>
           <Text>FireBase</Text>
-        </Button>
+        </Button> */}
         {/* <Text style={styles.text}>Welcome to the Picker</Text> */}
         <Swiper
           onSwipeLeftStore={onSwipeLeftStore}

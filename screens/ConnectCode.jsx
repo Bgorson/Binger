@@ -13,9 +13,7 @@ export default function ConnectCode(props) {
     <>
       <StyleProvider style={getTheme(material)}>
         <View>
-          <Text style={{ textAlign: 'center', marginTop: 300 }}>
-            Find and Seek Matches here
-          </Text>
+          <Text>Find and Seek Matches here</Text>
           <QRCode
             value={
               firebase.auth().currentUser.uid +
