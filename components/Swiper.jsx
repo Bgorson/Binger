@@ -17,10 +17,25 @@ import {
   Icon,
 } from 'native-base';
 
+const filterViewedShows = (viewedShows, newShows) => {
+  return newShows.filter((show) => !viewedShows.includes(show.title));
+};
+
 export default class DeckSwiperPicker extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.state = { showData: [], isLoading: true, offset: 0, open: false };
+    const viewedShowsProp = props.viewedShows.map(function (item) {
+      return item['title'];
+    });
+    console.log('constructor', viewedShowsProp);
+    this.state = {
+      showData: [],
+      isLoading: true,
+      offset: 0,
+      open: false,
+      viewedShows: viewedShowsProp,
+      firstRender: true,
+    };
   }
 
   componentDidMount() {
@@ -31,11 +46,19 @@ export default class DeckSwiperPicker extends Component {
         params: { type: 'tv', filter: 'netflix', offset: this.state.offset },
       })
       .then((response) => {
+        const filteredShows = filterViewedShows(
+          this.state.viewedShows,
+          response.data
+        );
         this.setState({
-          showData: response.data,
+          showData: filteredShows || [],
           offset: 50,
           isLoading: false,
         });
+        if (filteredShows?.length <= 0 || filteredShows === undefined) {
+          console.log('no shows found');
+          this.updateSwipeData();
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -44,6 +67,7 @@ export default class DeckSwiperPicker extends Component {
 
   updateSwipeData() {
     const { offset } = this.state;
+    console.log('offset', offset);
     this.setState({ isLoading: true });
     axios
       .request({
@@ -52,11 +76,25 @@ export default class DeckSwiperPicker extends Component {
         params: { type: 'tv', filter: 'netflix', offset },
       })
       .then((response) => {
+        const filteredShows =
+          filterViewedShows(this.state.viewedShows, response.data) || [];
+
         this.setState({
-          showData: response.data,
+          showData: filteredShows,
           offset: offset + 50,
           isLoading: false,
         });
+        if (
+          (filteredShows?.length <= 0 || filteredShows === undefined) &&
+          this.state.firstRender
+        ) {
+          // this.updateSwipeData();
+        }
+        if (filteredShows.length > 0) {
+          this.setState({
+            firstRender: false,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);

@@ -102,6 +102,13 @@ export default function Picker({ navigation }, props) {
         </Button> */}
         {/* <Text style={styles.text}>Welcome to the Picker</Text> */}
         <Swiper
+          viewedShows={
+            likedShows.length > 0
+              ? likedShows.concat(rejectedShows)
+              : rejectedShows
+              ? rejectedShows
+              : []
+          }
           onSwipeLeftStore={onSwipeLeftStore}
           onRightSwipeDiscard={onRightSwipeDiscard}
         />
