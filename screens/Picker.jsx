@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import * as firebase from 'firebase';
+import Constants from 'expo-constants';
+
 import {
   Container,
   Header,
@@ -30,10 +32,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
-
+console.log(Constants.manifest.extra.FIRE_BASE);
 // // Initialize Firebase
 const firebaseConfig = {
-  apiKey: 'AIzaSyDYQ39kqFcFqNFx6hWxAF5iJVIUq8RWxew',
+  apiKey: Constants.manifest.extra.FIRE_BASE,
   authDomain: 'binger-3ac6e.firebaseapp.com',
   databaseURL: 'https://binger-3ac6e.firebaseio.com',
   projectId: 'binger-3ac6e',
