@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
 });
-console.log(Constants.manifest.extra.FIRE_BASE);
 // // Initialize Firebase
 const firebaseConfig = {
   apiKey: Constants.manifest.extra.FIRE_BASE,
@@ -60,7 +59,6 @@ export default function Picker({ navigation }, props) {
       .ref(`/users/${firebase.auth().currentUser.uid}/shows`)
       .once('value', (snapshot) => {
         const shows = snapshot.val();
-        console.log('all the liked shows here', shows.likedShows);
         if (shows) {
           setLikedShows(shows.likedShows);
           setRejectedShows(shows.rejectedShows);

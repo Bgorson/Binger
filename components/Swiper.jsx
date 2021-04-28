@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableHighlight } from 'react-native';
 import Constants from 'expo-constants';
 import axios from 'axios';
 import {
@@ -27,7 +27,6 @@ export default class DeckSwiperPicker extends Component {
     const viewedShowsProp = props.viewedShows.map(function (item) {
       return item['title'];
     });
-    console.log('constructor', viewedShowsProp);
     this.state = {
       showData: [],
       isLoading: true,
@@ -50,13 +49,14 @@ export default class DeckSwiperPicker extends Component {
           this.state.viewedShows,
           response.data
         );
+        // console.log('Post Filter', filteredShows);
         this.setState({
           showData: filteredShows || [],
           offset: 50,
           isLoading: false,
         });
         if (filteredShows?.length <= 0 || filteredShows === undefined) {
-          console.log('no shows found');
+          console.log('no initial shows found');
           this.updateSwipeData();
         }
       })
@@ -78,6 +78,7 @@ export default class DeckSwiperPicker extends Component {
       .then((response) => {
         const filteredShows =
           filterViewedShows(this.state.viewedShows, response.data) || [];
+        // console.log('Post Filter on Update', filteredShows);
 
         this.setState({
           showData: filteredShows,
@@ -120,41 +121,39 @@ export default class DeckSwiperPicker extends Component {
                 onSwipeLeft={(e) => this.props.onSwipeLeftStore(e)}
                 onSwipeRight={(e) => this.props.onRightSwipeDiscard(e)}
                 renderItem={(item) => (
-                  <Card style={{ elevation: 3 }}>
-                    {this.state.open ? <Text>{item.description}</Text> : null}
-                    <CardItem>
-                      <Left>
-                        {/* <Thumbnail
+                  <TouchableHighlight
+                    onPress={() =>
+                      this.setState((prevState) => ({
+                        open: !prevState.open,
+                      }))
+                    }
+                  >
+                    <Card style={{ elevation: 3 }}>
+                      {this.state.open ? <Text>{item.description}</Text> : null}
+                      <CardItem>
+                        <Left>
+                          {/* <Thumbnail
                           source={require('../assets/images/the_Office.jpg')}
                         /> */}
-                        <Body>
-                          <Text>{item.text}</Text>
-                          <Text note>{item.text}</Text>
-                        </Body>
-                      </Left>
-                    </CardItem>
-                    <CardItem cardBody>
-                      <Image
-                        source={{
-                          uri: item.ImageURL,
-                        }}
-                        style={{ flex: 1, height: 300 }}
-                      />
-                    </CardItem>
-                    <CardItem>
-                      <Text>{item.title}</Text>
-                      <Button
-                        primary
-                        onPress={() =>
-                          this.setState((prevState) => ({
-                            open: !prevState.open,
-                          }))
-                        }
-                      >
-                        <Text>Click for description</Text>
-                      </Button>
-                    </CardItem>
-                  </Card>
+                          <Body>
+                            <Text>{item.text}</Text>
+                            <Text note>{item.text}</Text>
+                          </Body>
+                        </Left>
+                      </CardItem>
+                      <CardItem cardBody>
+                        <Image
+                          source={{
+                            uri: item.ImageURL,
+                          }}
+                          style={{ flex: 1, height: 300 }}
+                        />
+                      </CardItem>
+                      <CardItem>
+                        <Text>{item.title}</Text>
+                      </CardItem>
+                    </Card>
+                  </TouchableHighlight>
                 )}
               />
             </View>
