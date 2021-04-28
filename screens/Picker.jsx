@@ -52,6 +52,7 @@ export default function Picker({ navigation }, props) {
   const [user, setUser] = useState(null);
   const [likedShows, setLikedShows] = useState([]);
   const [rejectedShows, setRejectedShows] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     firebase
@@ -63,7 +64,8 @@ export default function Picker({ navigation }, props) {
           setLikedShows(shows.likedShows);
           setRejectedShows(shows.rejectedShows);
         }
-      });
+      })
+      .then(() => setIsLoading(false));
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
         console.log('We are authenticated now!');
@@ -97,34 +99,37 @@ export default function Picker({ navigation }, props) {
   return (
     <StyleProvider style={getTheme(material)}>
       <>
-        {/* <Button onPress={() => console.log(likedShows)}>
-          <Text>FireBase</Text>
-        </Button> */}
-        {/* <Text style={styles.text}>Welcome to the Picker</Text> */}
-        <Swiper
-          viewedShows={
-            likedShows.length > 0
-              ? likedShows.concat(rejectedShows)
-              : rejectedShows
-              ? rejectedShows
-              : []
-          }
-          onSwipeLeftStore={onSwipeLeftStore}
-          onRightSwipeDiscard={onRightSwipeDiscard}
-        />
-        {/* <View style={styles.bottom}>
-
-      </View> */}
-        <Button
-          onPress={() => {
-            navigation.navigate('Picked', {
-              favoritedShowsArray: likedShows,
-            });
-          }}
-          block
-        >
-          <Text>See what you've Picked</Text>
-        </Button>
+        {isLoading ? (
+          <Container>
+            <View>
+              <Text> Loading</Text>
+            </View>
+          </Container>
+        ) : (
+          <>
+            <Swiper
+              viewedShows={
+                likedShows.length > 0
+                  ? likedShows.concat(rejectedShows)
+                  : rejectedShows
+                  ? rejectedShows
+                  : []
+              }
+              onSwipeLeftStore={onSwipeLeftStore}
+              onRightSwipeDiscard={onRightSwipeDiscard}
+            />
+            <Button
+              onPress={() => {
+                navigation.navigate('Picked', {
+                  favoritedShowsArray: likedShows,
+                });
+              }}
+              block
+            >
+              <Text>See what you've Picked</Text>
+            </Button>
+          </>
+        )}
       </>
     </StyleProvider>
   );

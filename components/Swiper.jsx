@@ -23,7 +23,7 @@ const filterViewedShows = (viewedShows, newShows) => {
 
 export default class DeckSwiperPicker extends Component {
   constructor(props) {
-    super();
+    super(props);
     const viewedShowsProp = props.viewedShows.map(function (item) {
       return item['title'];
     });
@@ -35,9 +35,7 @@ export default class DeckSwiperPicker extends Component {
       viewedShows: viewedShowsProp,
       firstRender: true,
     };
-  }
 
-  componentDidMount() {
     axios
       .request({
         method: 'GET',
@@ -45,11 +43,14 @@ export default class DeckSwiperPicker extends Component {
         params: { type: 'tv', filter: 'netflix', offset: this.state.offset },
       })
       .then((response) => {
+        console.log('decided shows', this.state.viewedShows);
+        // console.log('incoming data', response.data);
+
         const filteredShows = filterViewedShows(
           this.state.viewedShows,
           response.data
         );
-        // console.log('Post Filter', filteredShows);
+        console.log('Post Filter', filteredShows);
         this.setState({
           showData: filteredShows || [],
           offset: 50,
@@ -64,6 +65,8 @@ export default class DeckSwiperPicker extends Component {
         console.log(error);
       });
   }
+
+  componentDidMount() {}
 
   updateSwipeData() {
     const { offset } = this.state;
